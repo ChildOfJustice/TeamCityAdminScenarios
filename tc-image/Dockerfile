@@ -1,4 +1,4 @@
-ARG baseImage='amazoncorretto:17.0.10-al2023-headless'
+ARG baseImage='amazoncorretto:17.0.10-al2-native-headless'
 
 FROM ${baseImage}
 
