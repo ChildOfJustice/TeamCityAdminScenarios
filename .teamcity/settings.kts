@@ -120,6 +120,10 @@ object TaggedBuildConsumer_BuildTcImage : BuildType({
 
     triggers {
         schedule {
+            schedulingPolicy = daily {
+                hour = 13
+                minute = 10
+            }
             branchFilter = """
                 +:<default>
                 +:build-custom-tc-image-with-triggers
