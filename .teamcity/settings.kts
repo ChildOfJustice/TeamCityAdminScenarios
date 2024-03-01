@@ -120,9 +120,9 @@ object TaggedBuildConsumer_BuildTcImage : BuildType({
 
     triggers {
         schedule {
-            schedulingPolicy = daily {
-                hour = 13
-                minute = 15
+            schedulingPolicy = cron {
+                hours = "5"
+                dayOfWeek = "*"
             }
             branchFilter = """
                 +:<default>
@@ -138,6 +138,8 @@ object TaggedBuildConsumer_BuildTcImage : BuildType({
                 """.trimIndent()
             }
             withPendingChangesOnly = false
+            param("minute", "15")
+            param("hour", "13")
         }
     }
 
