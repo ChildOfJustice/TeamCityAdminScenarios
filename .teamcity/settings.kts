@@ -122,7 +122,7 @@ object TaggedBuildConsumer_BuildTcImage : BuildType({
         schedule {
             schedulingPolicy = daily {
                 hour = 13
-                minute = 10
+                minute = 15
             }
             branchFilter = """
                 +:<default>
@@ -137,6 +137,7 @@ object TaggedBuildConsumer_BuildTcImage : BuildType({
                     +:build-custom-tc-image-with-triggers
                 """.trimIndent()
             }
+            withPendingChangesOnly = false
         }
     }
 
