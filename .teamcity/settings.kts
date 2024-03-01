@@ -120,11 +120,18 @@ object TaggedBuildConsumer_BuildTcImage : BuildType({
 
     triggers {
         schedule {
-            branchFilter = "+:<default>"
+            branchFilter = """
+                +:<default>
+                +:build-custom-tc-image-with-triggers
+            """.trimIndent()
             triggerBuild = onWatchedBuildChange {
                 buildType = "${ProduceTeamCityArtifact.id}"
                 watchedBuildRule = ScheduleTrigger.WatchedBuildRule.TAG
                 watchedBuildTag = "deploy"
+                watchedBuildBranchFilter = """
+                    +:<default>
+                    +:build-custom-tc-image-with-triggers
+                """.trimIndent()
             }
         }
     }
