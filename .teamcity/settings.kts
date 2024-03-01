@@ -2,6 +2,8 @@ import jetbrains.buildServer.configs.kotlin.*
 import jetbrains.buildServer.configs.kotlin.buildSteps.DockerCommandStep
 import jetbrains.buildServer.configs.kotlin.buildSteps.dockerCommand
 import jetbrains.buildServer.configs.kotlin.buildSteps.script
+import jetbrains.buildServer.configs.kotlin.triggers.ScheduleTrigger
+import jetbrains.buildServer.configs.kotlin.triggers.schedule
 
 /*
 The settings script is an entry point for defining a TeamCity
@@ -113,6 +115,17 @@ object TaggedBuildConsumer_BuildTcImage : BuildType({
                 
                 CMD ["/bin/sh", "-c", "${'$'}TEAMCITY_DIST/bin/teamcity-server.sh run"]
             """.trimIndent())
+        }
+    }
+
+    triggers {
+        schedule {
+            branchFilter = "+:<default>"
+            triggerBuild = onWatchedBuildChange {
+                buildType = "${ProduceTeamCityArtifact.id}"
+                watchedBuildRule = ScheduleTrigger.WatchedBuildRule.TAG
+                watchedBuildTag = "deploy"
+            }
         }
     }
 
