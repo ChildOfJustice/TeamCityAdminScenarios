@@ -14,6 +14,10 @@ create(DslContext.projectId, BuildType({
     id("Deploy")
     name = "Deploy"
 
+    enablePersonalBuilds = false
+    type = BuildTypeSettings.Type.DEPLOYMENT
+    maxRunningBuilds = 1
+
     steps {
         script {
             name = "DeployStep"
