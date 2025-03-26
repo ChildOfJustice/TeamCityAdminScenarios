@@ -22,6 +22,7 @@ project {
     val vcsRoot = VcsRoot {
         id("MyProject_VCS")
         name = "MyProject Repository"
+        type = "git"
 //        url = "git@github.com:myorg/myproject.git"
 //        branch = "refs/heads/main"
 //        branchSpec = "+:refs/heads/*"
