@@ -7,6 +7,7 @@ import jetbrains.buildServer.configs.kotlin.vcs.GitVcsRoot
 import jetbrains.buildServer.configs.kotlin.buildFeatures.dockerSupport
 import jetbrains.buildServer.configs.kotlin.failureConditions.BuildFailureOnMetric
 import jetbrains.buildServer.configs.kotlin.failureConditions.failOnMetricChange
+import jetbrains.buildServer.configs.kotlin.ui.add
 
 version = "2024.03"
 
@@ -83,20 +84,9 @@ fun createBuildConfiguration(platform: String, jdk: String) = BuildType({
 
     // Set up dependencies for build chain
     if (platform != "linux" || jdk != "17") {
+        val linuxJdk17BuildId = "JenkinsCore_linux_JDK17"
         dependencies {
-            de
-            snapshot(LinuxJDK17) {
-
-                onDependencyFailure = FailureAction.FAIL_TO_START
-                onDependencyCancel = FailureAction.CANCEL
-            }
-            artifacts(LinuxJDK17) {
-                artifactRules = """
-                    +:**/*.jar
-                    +:**/*.war
-                    +:**/*.zip => artifacts
-                """.trimIndent()
-            }
+            snapshot(AbsoluteId(linuxJdk17BuildId)) {}
         }
     }
 
